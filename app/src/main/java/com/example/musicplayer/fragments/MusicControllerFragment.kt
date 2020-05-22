@@ -31,6 +31,7 @@ class MusicControllerFragment : Fragment() {
     lateinit var forwardButton: ImageButton
     lateinit var backwardButton: ImageButton
     var globalObject = GlobalClass.objectInstance
+    var isPlaylistChanged = 0
     var utils = Utilities()
     lateinit var currentTimeText: TextView
     lateinit var totalTimeText: TextView
@@ -91,6 +92,23 @@ class MusicControllerFragment : Fragment() {
     }
 
     private fun setListeners() {
+        heartImage.setOnClickListener {
+            if(GlobalClass.favourites.any {
+                    it.title == GlobalClass.currentPlaying!!.title
+                }) {
+                val indexOfMusic = GlobalClass.favourites.find {
+                    it.title == GlobalClass.currentPlaying!!.title
+                }
+                GlobalClass.favourites.remove(indexOfMusic)
+                GlobalClass.currentPlaying!!.isHeartSelected = 0
+                heartImage.setImageResource(R.drawable.ic_heart)
+            }
+            else {
+                GlobalClass.favourites.add(GlobalClass.currentPlaying!!)
+                GlobalClass.currentPlaying!!.isHeartSelected = 1
+                heartImage.setImageResource(R.drawable.ic_untitled)
+            }
+        }
         pauseButton.setOnClickListener {
             if (globalObject.isPlaying()) {
                 Log.d("progress", "pausing")
@@ -104,7 +122,30 @@ class MusicControllerFragment : Fragment() {
         }
         with(currentImage) { setOnTouchListener(OnSwipeTouchListenerMusicImage(context)) }
         shuffleButton.setOnClickListener {
-
+            if(isPlaylistChanged == 0) {
+                GlobalClass.currentPlaylist.shuffle()
+                for (i in GlobalClass.currentPlaylist) {
+                    Log.d("shuffledebug", " cuurent : ${i.title}")
+                }
+                for(i in GlobalClass.originalPlaylist) {
+                    Log.d("shuffledebug", "original : ${i.title}")
+                }
+                shuffleButton.setColorFilter(context!!.resources.getColor(android.R.color.holo_green_light))
+                isPlaylistChanged = 1
+            }
+            else if(isPlaylistChanged == 1) {
+                for(i in 0 until GlobalClass.currentPlaylist.size) {
+                    GlobalClass.currentPlaylist[i]=GlobalClass.originalPlaylist[i]
+                }
+                for (i in GlobalClass.currentPlaylist) {
+                    Log.d("shuffledebug", " cuurent : ${i.title}")
+                }
+                for(i in GlobalClass.originalPlaylist) {
+                    Log.d("shuffledebug", "original : ${i.title}")
+                }
+                shuffleButton.setColorFilter(context!!.resources.getColor(android.R.color.white))
+                isPlaylistChanged = 0
+            }
         }
         loopButton.setOnClickListener {
             if (globalObject.isLooping()) {

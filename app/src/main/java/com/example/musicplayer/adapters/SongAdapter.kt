@@ -113,8 +113,12 @@ class SongAdapter(
             GlobalClass.currentIndex = 0
             GlobalClass.currentPlaylist.clear()
             GlobalClass.currentPlaylist = arrayStart
-            for(i in arrayStart) {
-                Log.d("playlists","${i.title} \n")
+            GlobalClass.originalPlaylist.addAll(arrayStart)
+            for (i in GlobalClass.currentPlaylist) {
+                Log.d("shuffledebug", i.title)
+            }
+            for (i in GlobalClass.originalPlaylist) {
+                Log.d("shuffledebug", i.title)
             }
         }
     }

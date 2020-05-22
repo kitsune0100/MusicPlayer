@@ -44,6 +44,7 @@ class GlobalClass : Application() {
         var playlists : MutableMap<String, MutableList<Music>> = mutableMapOf()
         var currentPlaying: Music? = null
         var currentPlaylist: MutableList<Music> = mutableListOf()
+        var originalPlaylist: MutableList<Music> = mutableListOf()
         val objectInstance = GlobalClass()
     }
 
@@ -114,9 +115,10 @@ class GlobalClass : Application() {
         cursor?.close()
     }
 
-    fun playMusic(variable: Music) {
+    fun playMusic(variable: Music, looping: Boolean = false) {
         releasePlayer()
         musicPlayer = MediaPlayer.create(instance, Uri.parse(variable.contentURI))
+        musicPlayer!!.isLooping = looping
         currentPlaying = variable
         (instance as MainActivity).setActiveTrack()
         musicPlayer?.start()
@@ -133,17 +135,24 @@ class GlobalClass : Application() {
     }
 
     fun playNextSong() {
+        Log.d("playlists", isLooping().toString())
         if (currentIndex == currentPlaylist.size-1 && isLooping()) {
             currentIndex = 0
-            playMusic(currentPlaylist[currentIndex])
+            playMusic(currentPlaylist[currentIndex], true)
         } else if (currentIndex == currentPlaylist.size-1 && !isLooping()) {
             currentIndex = 0
             currentPlaying = null
+            originalPlaylist.clear()
             currentPlaylist.clear()
             releasePlayer()
         } else {
             currentIndex++
-            playMusic(currentPlaylist[currentIndex])
+            if(isLooping()) {
+                playMusic(currentPlaylist[currentIndex], true)
+            }
+            else {
+                playMusic(currentPlaylist[currentIndex])
+            }
         }
     }
 

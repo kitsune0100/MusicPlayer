@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicplayer.GlobalClass
@@ -17,6 +18,7 @@ import com.example.musicplayer.adapters.ViewAllPlaylistsAdapter
 class ViewAllPlaylistsFragments : Fragment() {
 
     private lateinit var allPlaylistsRecyclerView: RecyclerView
+    private lateinit var addPlaylist : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +36,12 @@ class ViewAllPlaylistsFragments : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).setCurrentFragment()
         allPlaylistsRecyclerView = view.findViewById(R.id.allPlaylistsRecycler)
+        addPlaylist = view.findViewById(R.id.textView7)
+        addPlaylist.setOnClickListener {
+            activity!!.supportFragmentManager.beginTransaction().replace(R.id.frag_container, CreatePlaylistFragment())
+                .addToBackStack(null)
+                .commit()
+        }
         Log.d("playlists", GlobalClass.playlists.keys.toString())
         val layoutManagerPlaylists = LinearLayoutManager(activity!!.applicationContext, LinearLayoutManager.VERTICAL, false)
         val adapter = ViewAllPlaylistsAdapter(GlobalClass.playlists.keys.toMutableList(),this)

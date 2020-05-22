@@ -75,7 +75,10 @@ class MainActivity : AppCompatActivity() {
         }
         setActiveTrack()
         activeTrack.setOnClickListener {
-            changeFragmentToMusic(MusicControllerFragment())
+            if(GlobalClass.currentPlaying!=null)
+                changeFragmentToMusic(MusicControllerFragment())
+            else
+                activeTrack.visibility = View.GONE
         }
         globalVariable.setContext(this)
         globalVariable.getMusic()
