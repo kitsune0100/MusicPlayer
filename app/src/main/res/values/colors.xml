@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="textGreen">#66BB6A</color>
+    <color name="background">#0E0E0E</color>
+    <color name="colorCard1">#9575CD</color>
+    <color name="colorCard2">#64B5F6</color>
+    <color name="colorCard3">#81C784</color>
+    <color name="colorCard4">#F06292</color>
+    <color name="songCardBackground">#393838</color>
+    <color name="textWhite">#E6DEDE</color>
+    <color name="tintColor">#424141</color>
+</resources>
