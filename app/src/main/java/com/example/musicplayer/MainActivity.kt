@@ -74,6 +74,9 @@ class MainActivity : AppCompatActivity() {
             Log.d("saving", "empty")
         }
         setActiveTrack()
+        activeTrack.setOnClickListener {
+            changeFragmentToMusic(MusicControllerFragment())
+        }
         globalVariable.setContext(this)
         globalVariable.getMusic()
         navMenu.setOnNavigationItemSelectedListener { menuItem ->

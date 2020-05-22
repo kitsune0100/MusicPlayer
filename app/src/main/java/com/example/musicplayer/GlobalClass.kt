@@ -118,7 +118,7 @@ class GlobalClass : Application() {
         releasePlayer()
         musicPlayer = MediaPlayer.create(instance, Uri.parse(variable.contentURI))
         currentPlaying = variable
-//        (instance as MainActivity).setActiveTrack()
+        (instance as MainActivity).setActiveTrack()
         musicPlayer?.start()
         Log.d("progressindex", "currently playing at index $currentIndex")
         musicPlayer?.setOnCompletionListener {
