@@ -11,7 +11,7 @@ Music Player Android Application built in Kotlin
   - Create and delete playlists
   - Home section shows favourite songs, playlists and recently played music
   - Autocomplete Search Bar to search songs locally
-  - Music Controller with seeking 
+  - Music Controller with seeking and auto-scrolling title
   
 ## Snapshots : 
 ### Home Page
